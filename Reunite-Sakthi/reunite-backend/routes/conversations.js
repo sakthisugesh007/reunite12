@@ -117,13 +117,9 @@ router.post('/', auth, async (req, res) => {
 
     await conversation.save();
 
-    // Update item status
-    await Item.findByIdAndUpdate(itemId, {
-      status: 'claimed',
-      claimedBy: req.user.id,
-      claimedAt: new Date()
-    });
-    await emitItemUpdate(itemId, 'claimed');
+    // NOTE: Do not mark the item as 'claimed' at conversation start.
+    // The item remains visible on the public dashboard until the finder
+    // verifies the claimant (which updates the item status to 'verified').
 
     // Populate and return
     await conversation.populate('participants.user', 'name avatar');

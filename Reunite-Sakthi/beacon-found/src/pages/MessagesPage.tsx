@@ -297,7 +297,7 @@ export default function MessagesPage() {
     <div className="max-w-5xl mx-auto">
       <div className="card-surface overflow-hidden h-[calc(100vh-10rem)]">
         <div className="flex h-full flex-col lg:flex-row">
-          <div className="w-full lg:w-80 border-b lg:border-b-0 lg:border-r border-border p-5">
+          <div className="w-full lg:w-80 border-b lg:border-b-0 lg:border-r border-border p-5 h-full overflow-y-auto">
             <Link to="/dashboard" className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground mb-4">
               <ArrowLeft className="w-4 h-4" /> Back to Dashboard
             </Link>

@@ -14,7 +14,6 @@ export default function AuthPage() {
   const [isLogin, setIsLogin] = useState(true);
   const [authMode, setAuthMode] = useState<AuthMode>("user");
   const [showPassword, setShowPassword] = useState(false);
-  const [role, setRole] = useState<"finder" | "loser">("finder");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [formData, setFormData] = useState({
@@ -191,7 +190,7 @@ export default function AuthPage() {
                 : "Join the community and start reconnecting"}
           </p>
 
-          {isAdminMode && (
+          {/* {isAdminMode && (
             <div className="mt-4 p-4 rounded-xl bg-primary/5 border border-primary/15">
               <p className="text-sm font-medium text-foreground">Default admin credentials</p>
               <p className="text-sm text-muted-foreground mt-1">Email: {DEFAULT_ADMIN_EMAIL}</p>
@@ -204,7 +203,7 @@ export default function AuthPage() {
                 Use default admin login
               </button>
             </div>
-          )}
+          )} */}
 
           <form onSubmit={handleSubmit} className="mt-8 space-y-4">
             {error && (
@@ -232,35 +231,7 @@ export default function AuthPage() {
                     />
                   </div>
                 </div>
-                <div>
-                  <label className="text-sm font-medium text-foreground mb-1.5 block">
-                    I want to
-                  </label>
-                  <div className="grid grid-cols-2 gap-3">
-                    <button
-                      type="button"
-                      onClick={() => setRole("finder")}
-                      className={`py-3 px-4 rounded-xl border text-sm font-medium transition-all ${
-                        role === "finder"
-                          ? "border-primary bg-primary/5 text-primary"
-                          : "border-border text-muted-foreground hover:border-primary/30"
-                      }`}
-                    >
-                      Find Items
-                    </button>
-                    <button
-                      type="button"
-                      onClick={() => setRole("loser")}
-                      className={`py-3 px-4 rounded-xl border text-sm font-medium transition-all ${
-                        role === "loser"
-                          ? "border-primary bg-primary/5 text-primary"
-                          : "border-border text-muted-foreground hover:border-primary/30"
-                      }`}
-                    >
-                      Recover Items
-                    </button>
-                  </div>
-                </div>
+                
               </>
             )}
 
