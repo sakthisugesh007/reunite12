@@ -16,6 +16,7 @@ export default function AuthPage() {
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const [success, setSuccess] = useState("");
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -24,7 +25,7 @@ export default function AuthPage() {
   });
 
   const navigate = useNavigate();
-  const { login, register } = useAuth();
+  const { login, register, logout } = useAuth();
 
   const isAdminMode = authMode === "admin";
 
@@ -38,6 +39,7 @@ export default function AuthPage() {
   const switchMode = (mode: AuthMode) => {
     setAuthMode(mode);
     setError("");
+    setSuccess("");
 
     if (mode === "admin") {
       setIsLogin(true);
@@ -70,6 +72,7 @@ export default function AuthPage() {
     e.preventDefault();
     setLoading(true);
     setError("");
+    setSuccess("");
 
     try {
       if (isLogin) {
@@ -88,7 +91,17 @@ export default function AuthPage() {
           phone: formData.phone || undefined
         };
         await register(registerData.name, registerData.email, registerData.password, registerData.phone);
-        navigate("/dashboard");
+        logout();
+        setIsLogin(true);
+        setAuthMode("user");
+        setShowPassword(false);
+        setSuccess("Account created successfully. Please sign in to continue.");
+        setFormData({
+          name: "",
+          email: registerData.email,
+          password: "",
+          phone: ""
+        });
       }
     } catch (err) {
       setError(err instanceof Error ? err.message : "Authentication failed");
@@ -209,6 +222,12 @@ export default function AuthPage() {
             {error && (
               <div className="p-3 rounded-lg bg-destructive/10 border border-destructive/20 text-destructive text-sm">
                 {error}
+              </div>
+            )}
+
+            {success && (
+              <div className="p-3 rounded-lg bg-emerald-500/10 border border-emerald-500/20 text-emerald-700 text-sm">
+                {success}
               </div>
             )}
 
